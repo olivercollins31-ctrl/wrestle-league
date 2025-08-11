@@ -2,7 +2,7 @@ import { supabase } from '@/lib/supabaseClient';
 
 export default async function Dashboard() {
   const { data: events, error } = await supabase
-    .from('events')
+    .from('mvp_events')
     .select('*')
     .order('event_date', { ascending: true });
 
@@ -14,8 +14,9 @@ export default async function Dashboard() {
           {events.map((event) => (
             <li key={event.id} className="mb-2">
               <a href={`/event/${event.id}`} className="text-blue-500 underline">
-                {event.name} - {new Date(event.event_date).toLocaleDateString()}
-              </a>
+                {event.name}
+              </a>{' '}
+              – {new Date(event.event_date).toLocaleDateString()}
             </li>
           ))}
         </ul>
